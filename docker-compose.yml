@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  mysql-progly:
+    image: mysql:5.7
+    container_name: progly-mysql
+    volumes:
+      - progly-db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: progly
+      MYSQL_USER: progly
+      MYSQL_PASSWORD: test1234
+      MYSQL_ROOT_PASSWORD: test1234
+    ports:
+      - "23306:3306"
+
+  phpmyadmin-progly:
+    depends_on:
+      - mysql-progly
+    image: phpmyadmin/phpmyadmin:4.8.3
+    container_name: progly-phpmyadmin
+    restart: always
+    ports:
+      - '8081:80'
+    environment:
+      PMA_HOST: mysql-progly
+      MYSQL_ROOT_PASSWORD: test1234
+
+volumes:
+  progly-db:

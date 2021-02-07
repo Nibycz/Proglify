@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: true
+        format_sql: true
+  datasource:
+    url: "jdbc:mysql://localhost:23306/progly?verifyServerCertificate=false&useSSL=false"
+    username: progly
+    password: test1234
+    initialization-mode: never
+
+server:
+  error:
+    include-message: always

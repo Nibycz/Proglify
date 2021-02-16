@@ -23,11 +23,10 @@ public class UserService implements UserDetailsService {
     }
 
     public void addNewUser(User user) {
-        UserDetails userOptional = loadUserByUsername(user.getUsername());
-        System.out.println(userOptional);
-        //if (userOptional.isPresent()) {
-        //    throw new IllegalStateException("Email bereits vergeben.");
-        //}
+        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        if (userOptional.isPresent()) {
+            throw new IllegalStateException("Email bereits vergeben.");
+        }
         boolean samePassword = user.getPassword().equals(user.getRetypePassword());
         if (!samePassword) {
             throw new IllegalStateException("Passwörter stimmen nicht überein.");
@@ -38,12 +37,17 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public void loginUser(User user){
+        UserDetails userOptional = loadUserByUsername(user.getUsername());
+
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Benutzername %s kann nicht gefunden werden.", username)));
+                .orElseThrow(() -> new UsernameNotFoundException("Benutzername oder Passwort falsch."));
     }
 }
 

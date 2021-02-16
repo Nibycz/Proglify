@@ -2,6 +2,7 @@ package com.progly.progly.controller;
 
 import com.progly.progly.model.User;
 import com.progly.progly.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,6 +27,7 @@ public class UserController {
     }
 
     @PostMapping(path = "registration")
+    @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody User user){
         userService.addNewUser(user);
     }

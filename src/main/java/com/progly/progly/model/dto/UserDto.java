@@ -3,24 +3,33 @@ package com.progly.progly.model.dto;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
 public class UserDto implements Serializable {
-    private Long id;
 
-    @NotNull
-    @NotEmpty(message = "Benutzername darf nicht leer sein.")
+    @NotBlank(message = "test")
     private String username;
 
-    @NotNull
-    @Email(message = "Bitte eine gültige Email-Adresse eingeben.")
-    @NotEmpty(message = "Email darf nicht leer sein.")
+    @Email
+    @NotBlank
     private String email;
 
-    private Character password;
-    private Character matchingPassword;
+    private String password;
 
+    private String matchingPassword;
+
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", matchingPassword='" + matchingPassword + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package com.progly.progly.service;
 
 import com.progly.progly.model.User;
+import com.progly.progly.model.dto.UserDto;
 import com.progly.progly.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,32 +23,17 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void addNewUser(User user) {
-        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
-        if (userOptional.isPresent()) {
-            throw new IllegalStateException("Email bereits vergeben.");
-        }
-        boolean samePassword = user.getPassword().equals(user.getRetypePassword());
-        if (!samePassword) {
-            throw new IllegalStateException("Passwörter stimmen nicht überein.");
-        }
-
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
-        userRepository.save(user);
+    public void addNewUser(UserDto userDto) {
+        System.out.println(userDto.getEmail());
     }
 
     public void loginUser(User user){
-        UserDetails userOptional = loadUserByUsername(user.getUsername());
 
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Benutzername oder Passwort falsch."));
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
 

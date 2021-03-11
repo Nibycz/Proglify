@@ -1,11 +1,13 @@
 package com.progly.progly.model.dto;
 
+import com.progly.progly.validator.IPasswordMatches;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Data
+@IPasswordMatches
 public class UserDto implements Serializable {
 
     @NotNull(message = "Benutzername darf nicht leer sein.")
@@ -26,16 +28,11 @@ public class UserDto implements Serializable {
         Mindestens 1 Großbuchstabe
         Mindestens 1 Kleinbuchstabe
         Mindestens 1 Sonderzeichen -> !@#&()*
-        Passwort muss mindestens 8 Zeichen lang sein und maximal 20.
+        Passwort muss mindestens 8 Zeichen lang sein.
      */
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@*#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@*#&()–[{}]:;',?/*~$^+=<>]).{8,}$",
             message = "Passwort entspricht nicht den Erwartungen")
     private String password;
 
     private String matchingPassword;
-
-    //Prüft ob die Passwörter identisch sind.
-    public Boolean checkPasswordMatching(){
-        return this.getPassword().equals(this.getMatchingPassword());
-    }
 }

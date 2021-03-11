@@ -33,7 +33,6 @@ public class UserServiceImpl implements IUserService {
     public void createUserAccount(UserDto userDto) {
         //Passwort encode für DB
         String encodedPassword = passwordConfig.passwordEncoder().encode(userDto.getPassword());
-
         //DTO dem Model User zuweisen.
         final User user = new User();
         user.setUsername(userDto.getUsername());

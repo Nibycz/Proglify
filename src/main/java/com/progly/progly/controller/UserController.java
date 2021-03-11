@@ -28,20 +28,13 @@ public class UserController {
 
     @PostMapping(path = "registration")
     public ResponseEntity createNewUser(@Valid @RequestBody UserDto userDto, BindingResult results) {
-        // Valid prüft über die Annotation nach Fehlern (im DTO festgelegt). BindingResult holt sich die Daten (Fehler).
-        // Falls Fehler vorhanden sind werden diese in eine Liste von Strings gespeichert(errors). Danach wird ein Response zurückgegeben.
-        Boolean passwordMatch = userDto.checkPasswordMatching();
-
         if (results.hasErrors()) {
             List<String> errors = results.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
-            if(!passwordMatch) errors.add("Passwörter stimmen nicht überein.");
             return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
         }
 
-        if(!passwordMatch) return new ResponseEntity("Passwörter stimmen nicht überein.", HttpStatus.BAD_REQUEST);
-
         Optional<User> userExists = userService.findUserByEmail(userDto.getEmail());
-        if(userExists.isPresent()){
+        if (userExists.isPresent()) {
             return new ResponseEntity(String.format("Ein Benutzer mit der Email-Adresse %s ist bereits vorhanden.", userDto.getEmail()), HttpStatus.BAD_REQUEST);
         } else {
             userService.createUserAccount(userDto);

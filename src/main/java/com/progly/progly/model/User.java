@@ -1,21 +1,11 @@
 package com.progly.progly.model;
 
-import com.sun.istack.NotNull;
-import lombok.AccessLevel;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Table(name = "user")

@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 @Data
 @IPasswordMatches
-public class UserDto implements Serializable {
+public class RegisterUserDto implements Serializable {
 
     @NotNull(message = "Benutzername darf nicht leer sein.")
     @NotBlank(message = "Benutzername darf nicht leer sein.")
-    @Size(min=4, max = 15, message = "Benutzername muss mindestens 4 Zeichen besitzen und darf max. 15 Zeichen haben.")
+    @Size(min = 4, max = 15, message = "Benutzername muss mindestens 4 Zeichen besitzen und darf max. 15 Zeichen haben.")
     private String username;
 
     @Email(message = "Keine korrekte Email-Adresse.")

@@ -2,7 +2,8 @@ package com.progly.progly.service;
 
 import com.progly.progly.config.PasswordConfig;
 import com.progly.progly.model.User;
-import com.progly.progly.model.dto.UserDto;
+import com.progly.progly.model.dto.LoginUserDto;
+import com.progly.progly.model.dto.RegisterUserDto;
 import com.progly.progly.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,15 +31,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void createUserAccount(UserDto userDto) {
+    public void createUserAccount(RegisterUserDto registerUserDto) {
         //Passwort encode für DB
-        String encodedPassword = passwordConfig.passwordEncoder().encode(userDto.getPassword());
+        String encodedPassword = passwordConfig.passwordEncoder().encode(registerUserDto.getPassword());
         //DTO dem Model User zuweisen.
         final User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
+        user.setUsername(registerUserDto.getUsername());
+        user.setEmail(registerUserDto.getEmail());
         user.setPassword(encodedPassword);
         userRepository.save(user);
+    }
+
+    public void loginUser(LoginUserDto loginUserDto) {
+
     }
 }
 

@@ -1,6 +1,6 @@
 package com.progly.progly.validator;
 
-import com.progly.progly.model.dto.UserDto;
+import com.progly.progly.model.dto.RegisterUserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -14,7 +14,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<IPasswordMa
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
-        UserDto user = (UserDto) o;
+        RegisterUserDto user = (RegisterUserDto) o;
 
         return user.getPassword().equals(user.getMatchingPassword());
     }
